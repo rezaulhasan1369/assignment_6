@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useWorkoutState } from "@/context/WorkoutStateContext";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { plan, saved } = useWorkoutState();
 
   const isWorkoutsActive = pathname === "/";
   const isMyPlanActive = pathname === "/my-plan";
@@ -56,14 +58,14 @@ export default function Navbar() {
           <span className="flex items-center gap-2 text-[#d1d5db]">
             Plan
             <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#c2f800] px-1 font-bold text-black">
-              0
+              {plan.length}
             </span>
           </span>
 
           <span className="flex items-center gap-2 text-[#9ca3af]">
             Saved
             <span className="flex h-5 min-w-5 items-center justify-center rounded-full border border-[#2d313b] px-1 font-medium text-[#d1d5db]">
-              0
+              {saved.length}
             </span>
           </span>
         </Link>
