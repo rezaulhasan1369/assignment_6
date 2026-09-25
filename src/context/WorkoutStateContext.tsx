@@ -14,10 +14,12 @@ type WorkoutStateContextValue = {
   saved: Workout[];
   addToPlan: (workout: Workout) => boolean;
   saveWorkout: (workout: Workout) => boolean;
+  removeFromPlan: (id: number) => void;
+  removeFromSaved: (id: number) => void;
+  markAsDone: (id: number) => void;
   isInPlan: (id: number) => boolean;
   isSaved: (id: number) => boolean;
 };
-
 const WorkoutStateContext =
   createContext<WorkoutStateContextValue | null>(null);
 
@@ -105,17 +107,37 @@ export function WorkoutStateProvider({
     setSaved((currentSaved) => [...currentSaved, workout]);
     return true;
   }
+  function removeFromPlan(id: number) {
+  setPlan((currentPlan) =>
+    currentPlan.filter((workout) => workout.id !== id)
+  );
+}
+
+function removeFromSaved(id: number) {
+  setSaved((currentSaved) =>
+    currentSaved.filter((workout) => workout.id !== id)
+  );
+}
+
+function markAsDone(id: number) {
+  setPlan((currentPlan) =>
+    currentPlan.filter((workout) => workout.id !== id)
+  );
+}
 
   return (
     <WorkoutStateContext.Provider
       value={{
-        plan,
-        saved,
-        addToPlan,
-        saveWorkout,
-        isInPlan,
-        isSaved,
-      }}
+  plan,
+  saved,
+  addToPlan,
+  saveWorkout,
+  removeFromPlan,
+  removeFromSaved,
+  markAsDone,
+  isInPlan,
+  isSaved,
+}}
     >
       {children}
     </WorkoutStateContext.Provider>

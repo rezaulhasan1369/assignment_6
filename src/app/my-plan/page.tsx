@@ -9,8 +9,40 @@ import type { Workout } from "@/types/workout";
 type ActiveTab = "plan" | "saved";
 
 export default function MyPlanPage() {
-  const { plan, saved } = useWorkoutState();
+  const {
+    plan,
+    saved,
+    removeFromPlan,
+    removeFromSaved,
+    markAsDone,
+  } = useWorkoutState();
+
   const [activeTab, setActiveTab] = useState<ActiveTab>("plan");
+  const [message, setMessage] = useState<string | null>(null);
+
+  function showMessage(text: string) {
+    setMessage(text);
+
+    window.setTimeout(() => {
+      setMessage(null);
+    }, 2200);
+  }
+
+  function handleMarkAsDone(workout: Workout) {
+    markAsDone(workout.id);
+    showMessage(`${workout.name} marked as done.`);
+  }
+
+  function handleRemove(workout: Workout) {
+    if (activeTab === "plan") {
+      removeFromPlan(workout.id);
+      showMessage(`${workout.name} removed from today's plan.`);
+      return;
+    }
+
+    removeFromSaved(workout.id);
+    showMessage(`${workout.name} removed from saved workouts.`);
+  }
 
   const totalMinutes = plan.reduce(
     (total, workout) => total + workout.duration,
@@ -46,12 +78,10 @@ export default function MyPlanPage() {
           label="Exercises"
           value={String(plan.length)}
         />
-
         <MetricCard
           label="Minutes"
           value={String(totalMinutes)}
         />
-
         <MetricCard
           label="Calories"
           value={String(totalCalories)}
@@ -92,6 +122,9 @@ export default function MyPlanPage() {
                 <PlanWorkoutCard
                   key={workout.id}
                   workout={workout}
+                  activeTab={activeTab}
+                  onMarkAsDone={handleMarkAsDone}
+                  onRemove={handleRemove}
                 />
               ))}
             </div>
@@ -100,6 +133,15 @@ export default function MyPlanPage() {
           )}
         </div>
       </section>
+
+      {message && (
+        <div
+          role="status"
+          className="fixed bottom-6 right-6 z-50 max-w-sm rounded-xl border border-[#39421f] bg-[#20251b] px-5 py-4 text-sm font-medium text-[#c2f800] shadow-2xl"
+        >
+          {message}
+        </div>
+      )}
     </main>
   );
 }
@@ -128,10 +170,16 @@ function MetricCard({
 
 type PlanWorkoutCardProps = {
   workout: Workout;
+  activeTab: ActiveTab;
+  onMarkAsDone: (workout: Workout) => void;
+  onRemove: (workout: Workout) => void;
 };
 
 function PlanWorkoutCard({
   workout,
+  activeTab,
+  onMarkAsDone,
+  onRemove,
 }: PlanWorkoutCardProps) {
   return (
     <article className="flex flex-col overflow-hidden rounded-2xl border border-[#222630] bg-[#15171d] sm:flex-row">
@@ -147,14 +195,16 @@ function PlanWorkoutCard({
 
       <div className="flex flex-1 flex-col p-5">
         <div className="flex flex-wrap gap-2">
-          {workout.muscleGroups.slice(0, 2).map((muscle) => (
-            <span
-              key={muscle}
-              className="rounded-full bg-[#20251b] px-2.5 py-1 text-[9px] font-bold uppercase tracking-wide text-[#c2f800]"
-            >
-              {muscle}
-            </span>
-          ))}
+          {workout.muscleGroups
+            .slice(0, 2)
+            .map((muscle) => (
+              <span
+                key={muscle}
+                className="rounded-full bg-[#20251b] px-2.5 py-1 text-[9px] font-bold uppercase tracking-wide text-[#c2f800]"
+              >
+                {muscle}
+              </span>
+            ))}
         </div>
 
         <h2 className="mt-4 font-[family-name:var(--font-oswald)] text-xl font-bold uppercase text-white">
@@ -171,12 +221,32 @@ function PlanWorkoutCard({
           <span>★ {workout.rating}</span>
         </div>
 
-        <Link
-          href={`/workouts/${workout.id}`}
-          className="mt-5 text-xs font-bold uppercase tracking-[0.08em] text-[#c2f800] transition hover:text-white"
-        >
-          View Details →
-        </Link>
+        <div className="mt-5 flex flex-wrap items-center gap-3">
+          <Link
+            href={`/workouts/${workout.id}`}
+            className="text-xs font-bold uppercase tracking-[0.08em] text-[#c2f800] transition hover:text-white"
+          >
+            View Details →
+          </Link>
+
+          {activeTab === "plan" && (
+            <button
+              type="button"
+              onClick={() => onMarkAsDone(workout)}
+              className="rounded-[6px] bg-[#c2f800] px-4 py-2.5 text-[12px] font-bold uppercase leading-4 tracking-[0.3px] !text-black transition-opacity hover:opacity-90"
+            >
+              Mark as Done
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={() => onRemove(workout)}
+            className="rounded-[6px] border border-[#343a46] bg-transparent px-4 py-2.5 text-[12px] font-bold uppercase leading-4 tracking-[0.3px] text-white transition hover:border-[#c2f800] hover:text-[#c2f800]"
+          >
+            Remove
+          </button>
+        </div>
       </div>
     </article>
   );
@@ -207,7 +277,7 @@ function EmptyState({
 
       <Link
         href="/#library"
-        className="mt-6 inline-flex rounded-lg bg-[#c2f800] px-5 py-3 text-xs font-bold uppercase text-black transition hover:bg-[#d2ff3d]"
+        className="mt-6 inline-flex min-h-10 items-center justify-center rounded-md bg-[#c2f800] px-4 py-2 font-[family-name:var(--font-oswald)] text-[11px] font-bold uppercase tracking-[0.08em] text-[#0b0d10] transition hover:bg-[#d2ff3d]"
       >
         Browse Workouts
       </Link>
