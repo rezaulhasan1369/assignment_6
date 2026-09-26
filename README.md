@@ -4,7 +4,7 @@ FitLog is a responsive workout library and workout-planning web application buil
 
 ## Live Demo
 
-Live Site: Will be added after deployment.
+Live Site: https://assignment-6-two-pink.vercel.app/#library
 
 ## GitHub Repository
 
