@@ -1,4 +1,4 @@
-import WorkoutCard from "@/components/WorkoutCard";
+import WorkoutLibraryClient from "@/components/WorkoutLibraryClient";
 import type { Workout } from "@/types/workout";
 
 async function getWorkouts(): Promise<Workout[]> {
@@ -34,11 +34,7 @@ export default async function WorkoutLibrary() {
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {workouts.map((workout) => (
-          <WorkoutCard key={workout.id} workout={workout} />
-        ))}
-      </div>
+      <WorkoutLibraryClient workouts={workouts} />
     </section>
   );
 }
