@@ -38,5 +38,4 @@ export default function RootLayout({
   </WorkoutStateProvider>
 </body>
     </html>
-  );
-}
+  );}

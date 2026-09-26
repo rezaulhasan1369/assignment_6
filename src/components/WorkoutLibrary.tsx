@@ -1,15 +1,14 @@
 import WorkoutLibraryClient from "@/components/WorkoutLibraryClient";
-import type { Workout } from "@/types/workout";
+import type {Workout} from "@/types/workout";
 
-async function getWorkouts(): Promise<Workout[]> {
+async function getWorkouts(): Promise<Workout[]>{
   const response = await fetch("https://api.abcz.workers.dev/api/fitlog");
 
   if (!response.ok) {
     throw new Error("Failed to fetch workouts.");
   }
 
-  return response.json();
-}
+  return response.json();}
 
 export default async function WorkoutLibrary() {
   const workouts = await getWorkouts();
@@ -36,5 +35,4 @@ export default async function WorkoutLibrary() {
 
       <WorkoutLibraryClient workouts={workouts} />
     </section>
-  );
-}
+  );}

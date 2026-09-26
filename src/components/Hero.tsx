@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Hero() {
+export default function Hero(){
   return (
     <section className="mx-auto max-w-[1280px] px-6 pt-12">
       <div className="grid items-center gap-10 rounded-2xl border border-[#222630] bg-[#15171d] p-8 md:grid-cols-[1fr_auto] md:p-[57px]">
@@ -42,5 +42,4 @@ export default function Hero() {
         </div>
       </div>
     </section>
-  );
-}
+  );}

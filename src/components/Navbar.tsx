@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useWorkoutState } from "@/context/WorkoutStateContext";
+import { usePathname} from "next/navigation";
+import {useWorkoutState } from "@/context/WorkoutStateContext";
 
-export default function Navbar() {
+export default function Navbar(){
   const pathname = usePathname();
   const { plan, saved } = useWorkoutState();
 
@@ -71,5 +71,4 @@ export default function Navbar() {
         </Link>
       </nav>
     </header>
-  );
-}
+  );}
