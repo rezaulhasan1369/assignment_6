@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useWorkoutState } from "@/context/WorkoutStateContext";
 
-export default function Navbar(){
+export default function Navbar() {
   const pathname = usePathname();
   const { plan, saved } = useWorkoutState();
 
@@ -12,7 +12,7 @@ export default function Navbar(){
   const isMyPlanActive = pathname === "/my-plan";
 
   return (
-    <header className="border-b border-[#1b1f28] bg-[#0f1115]">
+    <header className="sticky top-0 z-50 border-b border-[#1b1f28] bg-[#0f1115]">
       <nav className="mx-auto flex min-h-[67px] max-w-[1280px] items-center justify-between gap-4 px-6">
         <Link href="/" className="flex shrink-0 items-center gap-2">
           <span
