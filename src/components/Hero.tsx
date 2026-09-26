@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Hero(){
+export default function Hero() {
   return (
     <section className="mx-auto max-w-[1280px] px-6 pt-12">
       <div className="grid items-center gap-10 rounded-2xl border border-[#222630] bg-[#15171d] p-8 md:grid-cols-[1fr_auto] md:p-[57px]">
@@ -23,9 +23,10 @@ export default function Hero(){
           <div className="mt-7">
             <Link
               href="#library"
-              className="inline-flex items-center justify-center rounded-[6px] bg-[#c2f800] px-6 py-3 text-center text-[12px] font-bold uppercase leading-4 tracking-[0.3px] !text-black shadow-[0_1px_1px_rgba(0,0,0,0.05)] transition hover:bg-[#c2f800] hover:!text-black"
+              className="inline-flex items-center justify-center gap-2 rounded-[6px] bg-[#c2f800] px-6 py-3 text-center text-[12px] font-bold uppercase leading-4 tracking-[0.3px] !text-black shadow-[0_1px_1px_rgba(0,0,0,0.05)] transition hover:bg-[#c2f800] hover:!text-black"
             >
-              Browse Workouts
+              <span aria-hidden="true">↓</span>
+              <span>Browse Workouts</span>
             </Link>
           </div>
         </div>
@@ -42,4 +43,5 @@ export default function Hero(){
         </div>
       </div>
     </section>
-  );}
+  );
+}

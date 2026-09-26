@@ -1,10 +1,10 @@
 "use client";
 
-import {useState} from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {useWorkoutState} from "@/context/WorkoutStateContext";
-import type {Workout} from "@/types/workout";
+import { useWorkoutState } from "@/context/WorkoutStateContext";
+import type { Workout } from "@/types/workout";
 
 type ActiveTab = "plan" | "saved";
 
@@ -276,10 +276,11 @@ function EmptyState({
       </p>
 
       <Link
-        href="/#library"
-        className="mt-6 inline-flex min-h-10 items-center justify-center rounded-md bg-[#c2f800] px-4 py-2 font-[family-name:var(--font-oswald)] text-[11px] font-bold uppercase tracking-[0.08em] text-[#0b0d10] transition hover:bg-[#d2ff3d]"
-      >
-        Browse Workouts
-      </Link>
+  href="/#library"
+  className="mt-6 inline-flex items-center justify-center rounded-[6px] bg-[#c2f800] px-6 py-3 text-[12px] font-bold uppercase leading-4 tracking-[0.3px] !text-black shadow-[0_1px_1px_rgba(0,0,0,0.05)] transition hover:opacity-90"
+>
+  Browse Workouts
+</Link>
     </div>
-  );}
+  );
+}

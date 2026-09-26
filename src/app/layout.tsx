@@ -21,7 +21,8 @@ export const metadata: Metadata = {
     "FitLog is a workout library for planning, saving, and tracking your exercises.",
 };
 
-export default function RootLayout({
+export default function RootLayout
+({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -38,4 +39,5 @@ export default function RootLayout({
   </WorkoutStateProvider>
 </body>
     </html>
-  );}
+  );
+}

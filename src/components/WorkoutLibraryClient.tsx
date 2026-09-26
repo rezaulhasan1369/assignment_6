@@ -4,7 +4,7 @@ import { useState } from "react";
 import WorkoutCard from "@/components/WorkoutCard";
 import type { Workout } from "@/types/workout";
 
-type SortOption = "default" | "duration" | "calories" | "rating";
+type SortOption = "duration" | "calories" | "rating";
 
 type WorkoutLibraryClientProps = {
   workouts: Workout[];
@@ -13,7 +13,7 @@ type WorkoutLibraryClientProps = {
 export default function WorkoutLibraryClient({
   workouts,
 }: WorkoutLibraryClientProps) {
-  const [sortOption, setSortOption] = useState<SortOption>("default");
+  const [sortOption, setSortOption] = useState<SortOption>("duration");
 
   const sortedWorkouts = [...workouts];
 
@@ -49,7 +49,6 @@ export default function WorkoutLibraryClient({
           }
           className="rounded-md border border-[#343a46] bg-[#15171d] px-4 py-2.5 text-xs font-bold uppercase tracking-[0.05em] text-white outline-none transition focus:border-[#c2f800]"
         >
-          <option value="default">Default</option>
           <option value="duration">Duration</option>
           <option value="calories">Calories</option>
           <option value="rating">Rating</option>
@@ -62,4 +61,5 @@ export default function WorkoutLibraryClient({
         ))}
       </div>
     </>
-  );}
+  );
+}
