@@ -25,5 +25,4 @@ export default function NotFound() {
         </Link>
       </section>
     </main>
-  );
-}
+  );}

@@ -29,5 +29,4 @@ export default function Error({
         </button>
       </section>
     </main>
-  );
-}
+  );}

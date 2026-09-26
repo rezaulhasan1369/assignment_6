@@ -282,5 +282,4 @@ function EmptyState({
   Browse Workouts
 </Link>
     </div>
-  );
-}
+  );}

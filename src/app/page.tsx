@@ -7,5 +7,4 @@ export default function Home() {
       <Hero />
       <WorkoutLibrary />
     </main>
-  );
-}
+  );}

@@ -145,5 +145,4 @@ function DetailItem({ label, value }: DetailItemProps) {
         {value}
       </p>
     </div>
-  );
-}
+  );}

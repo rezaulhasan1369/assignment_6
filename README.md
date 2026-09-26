@@ -1,158 +1,149 @@
-# FitLog — Workout Library
+﻿# FitLog
 
-FitLog is a responsive workout library and workout-planning web application built with Next.js. It allows users to browse exercises, view detailed workout information, build a daily workout plan, save workouts for later, and track basic workout metrics.
+A workout library and session planner built with Next.js, React, TypeScript, and Tailwind CSS.
 
-## Live Demo
+**[View the live application](https://assignment-6-two-pink.vercel.app/)**
 
-Live Site: https://assignment-6-two-pink.vercel.app/#library
+## Project Screenshot
 
-## GitHub Repository
+A real application screenshot is still needed. Add a capture of the home page and workout library at `public/readme/fitlog-home.png`, then uncomment the image below.
 
-https://github.com/rezaulhasan1369/assignment_6
+<!-- Uncomment after adding the actual screenshot:
+![FitLog home page and workout library](public/readme/fitlog-home.png)
+-->
 
-## Key Features
+## Overview
 
-- Browse 12 workouts loaded dynamically from the FitLog API.
-- View detailed workout information including equipment, difficulty, sets, reps, duration, calories, rating, and instructions.
-- Add workouts to Today's Plan with a maximum limit of 5 workouts.
-- Save workouts separately for later use.
-- View live Plan and Saved counters from the navigation bar.
-- Track total exercises, workout duration, and calories in My Plan.
-- Mark planned workouts as done or remove workouts from Plan and Saved lists.
-- Sort the workout library by Duration, Calories, or Rating.
-- Persist Plan and Saved workout data using localStorage.
-- Display toast/status feedback for workout actions.
-- Custom loading, error, empty, and 404 states.
-- Responsive layout for mobile, tablet, and desktop devices.
+FitLog lets users explore exercises, read workout instructions, and assemble a session of up to five workouts. Separate Plan and Saved lists make it possible to choose exercises for a session and keep others for later.
 
-## Technologies Used
+This learning project demonstrates fetching data in Next.js Server Components, interactive React components, shared state with React Context, and browser persistence.
 
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
-- Next.js App Router
-- Next.js Image Optimization
-- React Context API
-- Browser localStorage
-- FitLog REST API
+## Features
 
-## API
+- Browse workouts from an external API and sort by duration (ascending), calories (descending), or rating (descending).
+- View muscle groups, equipment, difficulty, sets, reps, duration, calories, ratings, and step-by-step instructions.
+- Add up to five unique workouts to Today's Plan and save workouts separately for later.
+- See Plan and Saved counters in the navigation, plus exercise count, total minutes, and total calories for the current plan.
+- Remove workouts from either list or mark a planned workout as done.
+- Keep both lists after a page refresh using browser `localStorage`.
+- Receive action feedback and see loading, error/retry, empty-list, and 404 states.
+- Use layouts that adapt through Tailwind breakpoints: the library changes from one to two to three columns, while details and plan cards adjust for wider screens.
 
-Workout data is provided by the FitLog API.
+## Tech Stack
 
-- All workouts: `https://api.abcz.workers.dev/api/fitlog`
-- Single workout: `https://api.abcz.workers.dev/api/fitlog/:id`
+- **Next.js 16.3.6:** App Router, Server Components, dynamic workout routes, and `next/image`.
+- **React 19.2.8:** interactive components, hooks, and Context for shared workout state.
+- **TypeScript 5:** shared workout types and strict type checking.
+- **Tailwind CSS 4:** utility styling and responsive layouts through the PostCSS integration.
+- **Fonts:** Inter and Oswald through `next/font/google`.
 
-## Pages
+## Routes
 
-### Home
+| Route | Purpose |
+| --- | --- |
+| `/` | Home page with the hero and workout library; `/#library` jumps to the library. |
+| `/workouts/[id]` | Workout details, instructions, and Plan/Save actions. |
+| `/my-plan` | Today's Plan and Saved tabs, plan totals, completion, and removal actions. |
 
-The Home page contains the hero section and workout library. Users can browse all available workouts and sort them by Duration, Calories, or Rating.
+## Data and Persistence
 
-### Workout Details
+Server Components fetch workout data from these external endpoints:
 
-Each workout has a dynamic details page containing its image, muscle groups, description, specifications, instructions, and actions for adding the workout to Today's Plan or saving it for later.
+- Library: `https://api.abcz.workers.dev/api/fitlog`
+- Details: `https://api.abcz.workers.dev/api/fitlog/:id`
 
-### My Plan
+The repository contains a shared `Workout` type, but no local workout dataset or application database. Remote workout images use `next/image`, with `img.magnific.com` allowed in `next.config.ts`.
 
-The My Plan page contains:
+`WorkoutStateProvider` manages two independent collections and stores their workout objects as JSON under `fitlog-plan` and `fitlog-saved` in `localStorage`. Data stays in the same browser and origin; there are no accounts or cross-device synchronization.
 
-- Today's Plan
-- Saved workouts
-- Exercise count
-- Total workout minutes
-- Total calories
-- Mark as Done functionality
-- Remove functionality
-- Links back to workout details
+**Behavior to know:** Mark as Done removes a workout from the plan without recording completion history. Removing or completing a planned workout leaves its Saved entry intact. Today's Plan stays stored until changed; it does not reset automatically each day. Minutes and calories are sums of the API values for the current plan, rather than measured activity.
 
-## Data Persistence
+## Dependencies
 
-FitLog uses browser `localStorage` to preserve Today's Plan and Saved workouts after a page refresh.
+Versions below follow `package.json`; `package-lock.json` records the resolved installation.
 
-## Responsive Design
+| Runtime package | Version |
+| --- | --- |
+| `next` | `16.3.6` |
+| `react` | `19.2.8` |
+| `react-dom` | `19.2.8` |
 
-The application is designed to work across:
-
-- Mobile devices
-- Tablets
-- Laptops
-- Desktop screens
+| Development/tooling packages | Version |
+| --- | --- |
+| `typescript` | `^5` |
+| `tailwindcss`, `@tailwindcss/postcss` | `^4` |
+| `eslint` | `^9` |
+| `eslint-config-next` | `16.3.6` |
+| `@types/node` | `^20` |
+| `@types/react`, `@types/react-dom` | `^19` |
 
 ## Run Locally
 
-Clone the repository:
+Prerequisites: Node.js **20.9 or later** and npm.
 
-```bash
-git clone https://github.com/rezaulhasan1369/assignment_6.git
-```
+1. Clone the repository and enter its directory:
 
-Enter the project directory:
+   ```bash
+   git clone https://github.com/rezaulhasan1369/assignment_6.git
+   cd assignment_6
+   ```
 
-```bash
-cd assignment_6
-```
-Install dependencies:
+2. Install the locked dependencies:
 
-```bash
-npm install
-```
-Start the development server:
+   ```bash
+   npm ci
+   ```
 
-```bash
-npm run dev
-```
-Open http://localhost:3000 in your browser to view the application.
+3. Start the development server:
 
-## Production Build
+   ```bash
+   npm run dev
+   ```
 
-To create an optimized production build:
+4. Open [localhost:3000](http://localhost:3000).
+
+The current implementation requires no environment variables. Network access is needed for workout data and remote images, and a fresh build may need to download the Google fonts.
+
+On Windows PowerShell, if script execution policy blocks `npm.ps1`, use `npm.cmd` in place of `npm`.
+
+## Build and Checks
+
+Create a production build:
 
 ```bash
 npm run build
 ```
+
+Serve the production build locally:
+
+```bash
+npm start
+```
+
+Run ESLint:
+
+```bash
+npm run lint
+```
+
 ## Project Structure
 
-The project follows the Next.js App Router structure.
+```text
+src/
+  app/          Pages, root layout, global styles, and loading/error/404 states
+  components/   Navigation, hero, workout library, cards, and workout actions
+  context/      Shared Plan/Saved state and localStorage persistence
+  types/        Workout data type
+public/
+  assets/       Banner and logo images
+```
 
-- `src/app` — Application routes, layouts, loading, error, and 404 pages
-- `src/components` — Reusable UI components
-- `src/context` — Shared workout state management
-- `src/types` — TypeScript type definitions
-- `public/assets` — Static images and assets
+## Learning Context
 
-## Workout Management
+Created by **Mohd. Rezaul Hasan** as Programming Hero Assignment 6, FitLog is a learning and portfolio project focused on API integration, routing, responsive interfaces, and client-side state management.
 
-FitLog maintains two separate workout collections:
+## Links
 
-- **Today's Plan** — Workouts selected for the current workout session
-- **Saved** — Workouts bookmarked for later
-
-Removing or completing a workout from Today's Plan does not automatically remove it from Saved.
-
-## Error and Loading Handling
-
-The application includes:
-
-- Home page loading state while workout data is being fetched
-- Custom 404 page for invalid routes
-- Application error handling
-- Empty states for workout collections
-- User feedback for workout actions
-
-## Deployment
-
-The project is prepared for deployment on Vercel or another Next.js-compatible hosting platform.
-
-Live Site: Will be added after deployment.
-
-## Author
-
-Developed by **Mohd. Rezaul Hasan**
-
-Programming Hero — Assignment 6
-
-## License
-
-This project was created for educational purposes as part of Programming Hero coursework.
+- [Live Demo](https://assignment-6-two-pink.vercel.app/)
+- [Repository](https://github.com/rezaulhasan1369/assignment_6)
+- [GitHub Profile](https://github.com/rezaulhasan1369)
